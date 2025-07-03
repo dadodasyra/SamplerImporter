@@ -6,7 +6,7 @@
  * Shared-secret your local watcher must include in each POST body.
  * Change it to something long & random.
  */
-const INBOUND_TOKEN = 's5SV88ubOzGWYZ';
+const INBOUND_TOKEN = 'PRIVATE_TOKEN';
 
 /**
  * Map Product-ID-Model ➜ Product name.

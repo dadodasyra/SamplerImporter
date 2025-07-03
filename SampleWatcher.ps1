@@ -2,9 +2,8 @@
 Original: https://github.com/dadodasyra/SamplerImporter/blob/main/SampleWatcher.ps1
 
 Hello IT guy, this is a script that runs automatically to send data to the following google sheet.
-https://docs.google.com/spreadsheets/d/1DsSklBWbfvbXtDVYCwIgOlOoBR7_lYBg9HUPa60wfyE/edit
-This script (and the apps scripts) were made by Zurbach Daniel, an SFA in 2025 when Manuel Fellmann asked for it.
-The data only transits between Roche SMB server to Google servers without any intermediary. It should be safe.
+This script (and the apps scripts) were made by [REDACTED], an SFA in 2025 when [REDACTED] asked for it.
+The data only transits between SMB server to Google servers without any intermediary. It should be safe.
 No GMP or confidential data is transfered in this process.
 
 The script runs automatically from the scheduled tasks, it's possible to disable it in Task Scheduler.
@@ -15,9 +14,9 @@ For documentation take a look at the button "Documentation" under "Sample Import
 # ──────────────────────────────────────────────────────────
 #  CONFIG – edit these constants only
 # ──────────────────────────────────────────────────────────
-$SharePath          = 'C:\Users\ZURBACD2\Documents\SyncedFolder'           # ① folder to watch
-$WebAppUrl          = 'https://script.google.com/a/macros/roche.com/s/AKfycbwZRkPBEvKRXyc-WcoAqNVrAKJg_noeRrghqs6rvSU/dev'  # ② GAS URL
-$SecretToken        = 's5SV88ubOzGWYZ'                   # ③ same as INBOUND_TOKEN, this is not really a secret
+$SharePath          = '%USERDATA%\Documents\SyncedFolder'           # ① folder to watch
+$WebAppUrl          = 'https://script.google.com/a/macros/.../dev'  # ② GAS URL
+$SecretToken        = 'PRIVATE_TOKEN'                   # ③ same as INBOUND_TOKEN, this is not really a secret
 $ScanIntervalMin    = 10                                 # ④ timed rescan freq. (in min)
 $GcloudExe          = 'gcloud'                         # full path if not in %PATH%
 # ──────────────────────────────────────────────────────────
