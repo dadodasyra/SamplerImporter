@@ -30,17 +30,20 @@
 
 <p>This App Script (that can be modified inside 'Extensions > App Script') receives every new *.txt* result file
     detected by your
-    local <a href="">watcher</em> Powershell script and appends one row in the
-        <strong>Released Samples</strong> (configurable) sheet.
+    local <a href="https://github.com/dadodasyra/SamplerImporter/blob/main/SampleWatcher.ps1">watcher</em> Powershell script and appends one row in the</a>
+    <strong>Released Samples</strong> (configurable) sheet.<br>
+    Full better configuration avaialble in the <a href="https://github.com/dadodasyra/SamplerImporter/">README on github</a>.
 </p>
 
 <ol>
     <li>The watcher POSTs <code>{filename, content (base64), token}</code>
         to the Web-App URL that has been deployed from the Apps Script UI.
         Along with the POSTs body a google access token needs to be provided due to Roche account coniguration. See next
-        paragraph for more.</li>
+        paragraph for more.
+    </li>
     <li>The Web-App authenticates the token, checks the filename hasn’t been
-        processed before, parses the text and writes the row.</li>
+        processed before, parses the text and writes the row.
+    </li>
     <li>Processed filenames are kept as a JSON array in
         <em>Script Properties</em> so re-uploads are ignored.
     </li>
@@ -52,12 +55,15 @@
 
     So by alternative we use GoogleCloud Cli, install it with a powershell:
     <code>
-        (New-Object Net.WebClient).DownloadFile('https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe', "$env:TEMP\GoogleCloudSDKInstaller.exe")
+        (New-Object
+        Net.WebClient).DownloadFile('https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe',
+        "$env:TEMP\GoogleCloudSDKInstaller.exe")
         & "$env:TEMP\GoogleCloudSDKInstaller.exe" /noreporting /quiet /singleuser
     </code>
     The watcher script will then be able to fetch token using gcloud CLI.
 
-    Given that Roche is making users change their password every year~ it may be mean that the token could be revoked.<br>
+    Given that Roche is making users change their password every year~ it may be mean that the token could be
+    revoked.<br>
     So the watcher script will try to reauthent using auth login if any issue occurs with gcloud.
 </p>
 </body>
