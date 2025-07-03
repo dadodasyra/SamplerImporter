@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 12px;
+        }
+
+        #status {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Select a .txt file</h3>
+
+<input id="file" type="file" accept=".txt"><br><br>
+<button onclick="send()">Upload</button>
+<span id="status"></span>
+
+<script>
+    function send() {
+        const f = file.files[0];
+        if (!f) { status.textContent = 'Pick a file first'; return; }
+
+        const r = new FileReader();
+        r.onload = e => {
+            google.script.run
+                .withSuccessHandler(msg => status.textContent = msg)
+                .withFailureHandler(err => status.textContent = 'Error: '+err.message)
+                .handleManualUpload({
+                    filename : f.name,
+                    content  : btoa(e.target.result),  // base-64
+                });
+        };
+        r.readAsBinaryString(f);
+        status.textContent = 'Uploading …';
+    }
+</script>
+</body>
+
+</html>

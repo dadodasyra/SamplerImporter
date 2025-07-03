@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            font-family: monospace;
+        }
+
+        input[type="text"] {
+            width: 100%;
+        }
+
+        #status {
+            color: green;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Importer Configuration</h3>
+<p>Please wait for the config to load (30~sec)</p>
+
+<label>Target sheet name:<br>
+    <input id="sheet" type="text" disabled>
+</label><br><br>
+
+<label>Property key for deduplication:<br>
+    <input id="propKey" type="text" disabled>
+</label><br><br>
+
+<label>Model → Product mapping (JSON):<br>
+    <textarea id="mapping" style="height:300px" disabled></textarea>
+</label><br>
+
+<button id="saveBtn" onclick="save()" disabled>Save</button><span id="status"></span>
+
+<script>
+    /** Initial fill */
+    google.script.run.withSuccessHandler(function (cfg) {
+        sheet.value   = cfg.sheetName;
+        propKey.value = cfg.propKey;
+        mapping.value = cfg.modelJson;
+
+        sheet.disabled   = false;
+        propKey.disabled = false;
+        mapping.disabled = false;
+        saveBtn.disabled = false;
+    }).getCurrentConfig();
+
+    /** Send back edits */
+    function save() {
+        const cfg = {
+            sheetName : sheet.value.trim(),
+            propKey   : propKey.value.trim(),
+            modelJson : mapping.value.trim()
+        };
+        google.script.run.withSuccessHandler(()=>status.textContent='✔ saved')
+            .saveConfig(cfg);
+    }
+</script>
+</body>
+
+</html>
