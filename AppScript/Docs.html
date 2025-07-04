@@ -3,6 +3,7 @@
 
 <head>
     <base target="_top">
+    <meta charset="UTF-8">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,12 +28,22 @@
 
 <body>
 <h2>Sample Importer</h2>
-
+<h3>Basic client installation</h3>
+<p>
+    Install GCloud CLI either from <a href="https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe">the installer</a> or using the powershell commands in "Google access token how to ?" part.
+    <br>Then download the <a href="https://github.com/dadodasyra/SamplerImporter/blob/main/SampleWatcher.ps1">local watcher script</a> along with the <a href="https://github.com/dadodasyra/SamplerImporter/blob/main/SampleWatcher.vbs">launcher script</a>.<br>
+    <br>- The watcher (ps1 file) should stay in your <code>%USERPROFILE%\SampleWatcher</code> folder (so if your username is "dadodasyra" then the watcher should be in <code>C:\Users\dadodasyra\SampleWatcher</code>).
+    <br>- The launcher (vbs file) should be placed in your <code>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code> folder so it will be launched at every Windows startup. (You can also access this folder with Win+R and typing <code>shell:startup</code>).
+    <br>Configure the watcher script by editing the <code>SampleWatcher.ps1</code> file, with the folder to sync and the app script URL (<a href="https://github.com/dadodasyra/SamplerImporter?tab=readme-ov-file#2----server-side-components-bound-to-the-google-sheet">see github doc</a>), etc...
+    <br><br>For the first time run the launcher (vbs file), then follow the first sign in process.
+    <br>You're done !
+</p>
+<h2>Developer doc</h2>
 <p>This App Script (that can be modified inside 'Extensions > App Script') receives every new *.txt* result file
     detected by your
-    local <a href="https://github.com/dadodasyra/SamplerImporter/blob/main/SampleWatcher.ps1">watcher</em> Powershell script and appends one row in the</a>
+    local <a href="https://github.com/dadodasyra/SamplerImporter/blob/main/SampleWatcher.ps1">watcher</a> Powershell script and appends one row in the
     <strong>Released Samples</strong> (configurable) sheet.<br>
-    Full better configuration avaialble in the <a href="https://github.com/dadodasyra/SamplerImporter/">README on github</a>.
+    Better documentation available in the <a href="https://github.com/dadodasyra/SamplerImporter/">README on github</a>.
 </p>
 
 <ol>
@@ -55,10 +66,8 @@
 
     So by alternative we use GoogleCloud Cli, install it with a powershell:
     <code>
-        (New-Object
-        Net.WebClient).DownloadFile('https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe',
-        "$env:TEMP\GoogleCloudSDKInstaller.exe")
-        & "$env:TEMP\GoogleCloudSDKInstaller.exe" /noreporting /quiet /singleuser
+(New-Object Net.WebClient).DownloadFile('https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe', "$env:TEMP\GoogleCloudSDKInstaller.exe")
+& "$env:TEMP\GoogleCloudSDKInstaller.exe" /noreporting /quiet /singleuser
     </code>
     The watcher script will then be able to fetch token using gcloud CLI.
 
